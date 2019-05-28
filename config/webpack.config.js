@@ -42,7 +42,7 @@ const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 const lessRegex = /\.less$/;
-const lessModuleRegex = /\.module\.less$/;
+const lessModuleRegex = /node_modules|antd\.css/;
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -410,6 +410,7 @@ module.exports = function (webpackEnv) {
               use: getStyleLoaders({
                 importLoaders: 1,
                 sourceMap: isEnvProduction && shouldUseSourceMap,
+                modules: true,
               }),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
@@ -437,6 +438,7 @@ module.exports = function (webpackEnv) {
               use: getStyleLoaders({
                   importLoaders: 2,
                   sourceMap: isEnvProduction && shouldUseSourceMap,
+                  modules: true
                 },
                 'sass-loader'
               ),
@@ -465,6 +467,8 @@ module.exports = function (webpackEnv) {
               use: getStyleLoaders({
                   importLoaders: 2,
                   sourceMap: isEnvProduction && shouldUseSourceMap,
+                  modules: true,
+                  // localIndetName: "[name]__[local]___[hash:base64:5]"
                 },
                 'less-loader'
               ),
@@ -477,11 +481,12 @@ module.exports = function (webpackEnv) {
             // Adds support for CSS Modules, but using SASS
             // using the extension .module.scss or .module.sass
             {
-              test: lessModuleRegex,
+              test: lessRegex,
+              include: lessModuleRegex,
               use: getStyleLoaders({
                   importLoaders: 2,
                   sourceMap: isEnvProduction && shouldUseSourceMap,
-                  modules: true,
+                  // modules: true,
                   getLocalIdent: getCSSModuleLocalIdent,
                 },
                 'less-loader'

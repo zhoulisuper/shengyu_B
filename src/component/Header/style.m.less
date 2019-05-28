@@ -1,0 +1,85 @@
+@import '../../style/variable.less';
+
+.header {
+  display: flex;
+  // position: fixed;
+  // z-index: 1;
+  align-items: flex-start;
+  height: @layout-header-height + 2px;
+  // width: 100%;
+  // transition: all 0.3s;
+  border-bottom: none;
+
+  :global {
+    .ant-menu-horizontal {
+      line-height: inherit;
+    }
+
+    .ant-form-item {
+      margin-left: 1em;
+      line-height: inherit;
+    }
+
+    .ant-layout-header {
+      background: #ffffff
+    }
+  }
+}
+
+.me {
+  position: absolute;
+  right: 0;
+  margin: 0 2em 0 0;
+
+  a {
+    margin-left: 1em;
+  }
+
+  [role='switch'] {
+    margin-right: 1em;
+  }
+}
+
+.langSelect {
+  min-width: 6em;
+  margin-right: 1em !important;
+}
+
+.logo {
+  // height: @layout-header-height;
+  margin: 0 2em 0 0;
+  font-size: 1.4em;
+  line-height: inherit;
+
+  img {
+    width: 1.3em;
+    margin-right: 1em;
+    margin-left: -0.6em;
+
+    &:hover {
+      animation: logo 2s 1s infinite;
+    }
+  }
+}
+
+@keyframes logo {
+  0% {
+    transform: rotateX(0) rotateY(0);
+  }
+
+  25% {
+    transform: rotateX(180deg) rotateY(0);
+  }
+
+  50% {
+    transform: rotateX(180deg) rotateY(180deg);
+  }
+
+  75% {
+    transform: rotateX(0deg) rotateY(180deg);
+  }
+
+  100% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+}

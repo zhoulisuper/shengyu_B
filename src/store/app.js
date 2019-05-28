@@ -1,28 +1,21 @@
 import EventEmitter from 'events'
-// import storeProp from 'src/storeProp'
-// import fxios from 'tool/fxios'
-// import { base as api } from 'src/api'
+import {
+  observable,
+  action,
+} from 'mobx'
 
-// @storeProp({
-//   rest: [
-//     {
-//       name: 'me',
-//       default: {},
-//       fetch: {
-//         url: api.me,
-//       },
-//     },
-//   ],
-//   setter: [
-//     {
-//       name: 'loading',
-//       default: true,
-//     },
-//   ],
-// })
 class App extends EventEmitter {
+  @observable loading = true
+  @observable me = {
+    name: 'zhouli'
+  }
+
+  @action
+  setLoading = v => {
+    this.loading = v
+  }
   load = () => {
-    console.log('333')
+    this.setLoading(false)
   }
 
   // logout = () => fxios.get(api.logout)

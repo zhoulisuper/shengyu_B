@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Layout } from "antd";
-// import Header from 'component/Header'
+import Header from "../Header";
 import TransitionRoute from "../TransitionRoute";
 
 /*
@@ -9,7 +9,7 @@ import TransitionRoute from "../TransitionRoute";
  * */
 const AppLayout = ({ routes }) => (
   <Layout>
-    {/* <Header /> */}
+    <Header />
     <Layout>
       <Layout.Content>
         <TransitionRoute routes={routes} />
