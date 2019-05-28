@@ -34,7 +34,7 @@ class AppHeader extends React.Component {
           {app.me.name}
           <button
             type="button"
-            className="link-button"
+            className={s.linkButton}
             onClick={app.logout}
             onKeyPress={app.logout}
           >
