@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Layout from "antd/lib/layout";
 import { observer, inject } from "mobx-react";
-import Menu from "../Menu";
+import Menu from "component/Menu";
 import s from "./style.m.less";
 
 const { Header } = Layout;

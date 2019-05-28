@@ -43,6 +43,8 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 const lessRegex = /\.less$/;
 const lessModuleRegex = /node_modules|antd\.css/;
+const resolvePath = relativePath =>
+  path.resolve(`${__dirname}/..`, relativePath)
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -277,6 +279,12 @@ module.exports = function (webpackEnv) {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',
+        tool: resolvePath("./src/tool"),
+        component: resolvePath("./src/component"),
+        page: resolvePath("./src/page"),
+        store: resolvePath("./src/store"),
+        style: resolvePath("./src/style"),
+        src: resolvePath("./src")
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding

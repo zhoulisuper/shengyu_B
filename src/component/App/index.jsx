@@ -1,11 +1,10 @@
 import { LocaleProvider } from "antd";
 import { Router } from "react-router-dom";
-// import MobxDevTools from 'mobx-react-devtools'
 import { Provider, observer } from "mobx-react";
 import React from "react";
 import PropTypes from "prop-types";
-import Loading from "../Loading";
-import Layout from "../Layout";
+import Loading from "component/Loading";
+import Layout from "component/Layout";
 
 /*
  * 项目启动器

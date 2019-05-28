@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { observer, inject } from "mobx-react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { Switch, Route } from "react-router-dom";
-import NoMatch from "../NoMatch";
+import NoMatch from "component/NoMatch";
 import s from "./style.m.less";
 
 const RouteTransition = ({ routes, store: { router } }) => (
