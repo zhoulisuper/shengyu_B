@@ -1,19 +1,50 @@
 import Events from 'events'
 import {
-  observe
+  observable,
+  action
 } from 'mobx'
 
-class User extends Events {}
+class User extends Events {
+  @observable
+  list = {}
 
-const store = new User()
-
-// 关闭modal且将record还原
-observe(store, 'formModal', ({
-  newValue
-}) => {
-  if (!newValue) {
-    store.restoreRecord()
+  @action
+  setList = (v) => {
+    this.list = v
+    console.log(this.menu)
   }
-})
 
-export default store
+  @observable
+  record = {
+    account: '',
+    name: '',
+    mail: '',
+    mobile: '',
+  }
+
+
+  @action
+  updateRecord = () => {
+    console.log('更新')
+  }
+  @action
+  createRecord = () => {
+    console.log('新建')
+  }
+
+
+  @observable formModal = false
+
+  @action
+  hideFormModal = () => {
+    this.formModal = false
+  }
+
+  @action
+  showFormModal = () => {
+    this.formModal = true
+  }
+}
+
+const user = new User()
+export default user

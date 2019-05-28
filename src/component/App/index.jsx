@@ -32,9 +32,9 @@ class App extends React.Component {
     store.app.load();
   }
 
-  componentWillUnmount() {
-    this.dispose();
-  }
+  // componentWillUnmount() {
+  //   this.dispose();
+  // }
 
   render() {
     const { store, routes, history } = this.props;

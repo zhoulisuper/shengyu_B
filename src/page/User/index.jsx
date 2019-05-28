@@ -1,16 +1,15 @@
 import { Card } from "antd";
 import React from "react";
-// import Form from './Form'
-// import Search from './Search'
-// import Operation from "./Operation";
-// import List from './List'
+import Form from "./Form";
+// import Search from "./Search";
+import Operation from "./Operation";
+// import List from "./List";
 
 const User = () => (
   <Card bordered={false}>
-    user
-    {/* <Operation /> */}
+    <Operation />
     {/* <List /> */}
-    {/* <Form /> */}
+    <Form />
   </Card>
 );
 export default User;
