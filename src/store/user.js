@@ -4,14 +4,20 @@ import {
   action
 } from 'mobx'
 
+
+import URL from 'api/serviceAPI';
+
+
+import {
+  fetch
+} from 'api/api'
 class User extends Events {
   @observable
-  list = {}
+  list = []
 
   @action
   setList = (v) => {
     this.list = v
-    console.log(this.menu)
   }
 
   @observable
@@ -24,12 +30,17 @@ class User extends Events {
 
 
   @action
-  updateRecord = () => {
-    console.log('更新')
+  updateRecord = (param) => {
+    return fetch(URL.userList, param)
+  }
+
+  createRecord(param) {
+    return fetch(URL.userList, param).then(this.setCreateRecord)
   }
   @action
-  createRecord = () => {
-    console.log('新建')
+  setCreateRecord = result => {
+    this.list = result.orderList
+    this.setList(result.orderList)
   }
 
 

@@ -31,7 +31,6 @@ class FormModal extends React.Component {
     if (e) {
       e.preventDefault();
     }
-    console.log(66);
     const { form } = this.props;
     form.validateFields((err, values) => {
       const body = { ...values };
@@ -43,13 +42,9 @@ class FormModal extends React.Component {
         if (isUpdate) {
           body.id = user.record.id;
         }
-        user[`${isUpdate ? "update" : "create"}Record`](
-          body,
-          {},
-          {
-            id: values.id
-          }
-        ).finally(user.hideFormModal);
+        user[`${isUpdate ? "update" : "create"}Record`](body, {
+          id: values.id
+        }).finally(user.hideFormModal);
       }
     });
   };

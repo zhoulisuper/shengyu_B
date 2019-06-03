@@ -289,7 +289,8 @@ module.exports = function (webpackEnv) {
         page: resolvePath("./src/page"),
         store: resolvePath("./src/store"),
         style: resolvePath("./src/style"),
-        src: resolvePath("./src")
+        src: resolvePath("./src"),
+        api: resolvePath("./src/api")
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding

@@ -1,5 +1,7 @@
 import isObject from 'lodash/isObject'
-import { Fxios } from 'fxios'
+import {
+  axios
+} from 'axios'
 import appConfig from 'src/config'
 
 export const config = {

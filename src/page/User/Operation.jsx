@@ -13,9 +13,7 @@ class Operation extends React.Component {
   static propTypes = {
     store: PropTypes.shape({
       user: PropTypes.shape({
-        list: PropTypes.shape({
-          hasCheckedKeys: PropTypes.bool
-        })
+        list: PropTypes.array
       })
     }).isRequired
   };
@@ -30,22 +28,17 @@ class Operation extends React.Component {
 
   destroy = () => {
     const user = this.store;
-    user.destroyRecord(toJS(user.list.checkedKeys));
+    // user.destroyRecord(toJS(user.list));
   };
 
   render() {
     const user = this.store;
-    const { list } = user;
     return (
       <CardTitle>
         <Button type="primary" onClick={user.showFormModal}>
           添加
         </Button>
-        <ConfirmButton
-          type="danger"
-          disabled={!list.hasCheckedKeys}
-          onConfirm={this.destroy}
-        >
+        <ConfirmButton type="danger" onConfirm={this.destroy}>
           删除
         </ConfirmButton>
       </CardTitle>
