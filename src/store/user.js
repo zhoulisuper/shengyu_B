@@ -14,11 +14,18 @@ import {
 class User extends Events {
   @observable
   list = []
-
   @action
   setList = (v) => {
     this.list = v
   }
+  fetchList(param) {
+    return fetch(URL.userList, param).then(this.setFetchList)
+  }
+  @action
+  setFetchList = result => {
+    this.list = result.orderList
+  }
+
 
   @observable
   record = {
@@ -27,30 +34,23 @@ class User extends Events {
     mail: '',
     mobile: '',
   }
-
-
-  @action
   updateRecord = (param) => {
-    return fetch(URL.userList, param)
+    return fetch(URL.userList, param).then(this.setCreateRecord)
   }
-
   createRecord(param) {
     return fetch(URL.userList, param).then(this.setCreateRecord)
   }
   @action
   setCreateRecord = result => {
     this.list = result.orderList
-    this.setList(result.orderList)
   }
 
 
   @observable formModal = false
-
   @action
   hideFormModal = () => {
     this.formModal = false
   }
-
   @action
   showFormModal = () => {
     this.formModal = true

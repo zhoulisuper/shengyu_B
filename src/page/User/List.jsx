@@ -34,27 +34,32 @@ class List extends React.Component {
   get columns() {
     return [
       {
-        title: "帐号",
-        dataIndex: "account"
+        title: "consignee",
+        dataIndex: "consignee"
       },
       {
-        title: "姓名",
-        dataIndex: "name",
-        key: "name"
+        title: "cusPayAmt",
+        dataIndex: "cusPayAmt"
       },
       {
-        title: "性别",
-        dataIndex: "gender",
-        key: "gender"
-        // render: propertyOf(GENDER_MAP),
+        title: "mobPhoneNum",
+        dataIndex: "mobPhoneNum"
       },
       {
-        title: "邮箱",
-        dataIndex: "mail"
+        title: "orderId",
+        dataIndex: "orderId"
       },
       {
-        title: "手机",
-        dataIndex: "mobile"
+        title: "orderStatus",
+        dataIndex: "orderStatus"
+      },
+      {
+        title: "orderTime",
+        dataIndex: "orderTime"
+      },
+      {
+        title: "payTime",
+        dataIndex: "payTime"
       },
       {
         title: "操作",
@@ -74,14 +79,16 @@ class List extends React.Component {
     const { store } = this;
     const data = store.list[index];
     // store.setRecord(data);
-    console.log(data);
+    console.log(toJS(data));
     store.showFormModal();
   };
 
   render() {
     const { list } = this.store;
     const tableProps = toJS(list);
-    return <Table columns={this.columns} {...tableProps} />;
+    return (
+      <Table columns={this.columns} dataSource={tableProps} rowKey="orderId" />
+    );
   }
 }
 export default List;

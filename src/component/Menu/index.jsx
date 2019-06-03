@@ -49,7 +49,7 @@ class AppMenu extends React.Component {
       store: { menu }
     } = this.props;
     const menus = toJS(menu.menus);
-    console.log(menus);
+    // console.log(menus);
     return menus.map(topMenu => (
       <SubMenu key={topMenu.name} title={topMenu.name}>
         {topMenu.children &&

@@ -1,6 +1,6 @@
 import { Button } from "antd";
 import { inject, observer } from "mobx-react";
-import { toJS } from "mobx";
+// import { toJS } from "mobx";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -27,7 +27,7 @@ class Operation extends React.Component {
   }
 
   destroy = () => {
-    const user = this.store;
+    // const user = this.store;
     // user.destroyRecord(toJS(user.list));
   };
 
