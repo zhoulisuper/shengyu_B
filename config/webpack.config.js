@@ -116,8 +116,13 @@ module.exports = function (webpackEnv) {
         loader: require.resolve(preProcessor),
         options: {
           sourceMap: isEnvProduction && shouldUseSourceMap,
-          javascriptEnabled: true
-        },
+          javascriptEnabled: true,
+          modifyVars: {
+            'primary-color': '#1DA57A',
+            'link-color': '#1DA57A',
+            'border-radius-base': '2px',
+          },
+        }
       });
     } else if (preProcessor) {
       loaders.push({

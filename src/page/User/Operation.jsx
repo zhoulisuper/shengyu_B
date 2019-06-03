@@ -38,7 +38,9 @@ class Operation extends React.Component {
     const { list } = user;
     return (
       <CardTitle>
-        <Button onClick={user.showFormModal}>添加</Button>
+        <Button type="primary" onClick={user.showFormModal}>
+          添加
+        </Button>
         <ConfirmButton
           type="danger"
           disabled={!list.hasCheckedKeys}
