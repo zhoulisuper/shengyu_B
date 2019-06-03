@@ -1,12 +1,12 @@
 import { Card } from "antd";
 import React from "react";
 import Form from "./Form";
-// import Search from "./Search";
+import Search from "./Search";
 import Operation from "./Operation";
 import List from "./List";
 
 const User = () => (
-  <Card bordered={false}>
+  <Card bordered={false} title={<Search />}>
     <Operation />
     <List />
     <Form />

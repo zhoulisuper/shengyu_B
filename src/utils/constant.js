@@ -1,8 +1,3 @@
-const ALL = {
-  id: '-999999',
-  name: '全部',
-};
-
 //数字占位符
 export const PLACEHOLDER = '--';
 

@@ -1,6 +1,11 @@
 import moment from 'moment';
 import s from './session';
-import { uniq, castArray, join, pick, keys } from 'lodash';
+import {
+  castArray,
+  join,
+  pick,
+  keys
+} from 'lodash';
 
 /*
  *促销模块时间禁用的判断方法
@@ -13,15 +18,15 @@ export function disabledStart(startValue, endValue) {
   return (
     startValue.valueOf() > endValue.valueOf() ||
     startValue.valueOf() <
-      moment()
-        .subtract(2, 'years')
-        .format('X') *
-        1000 ||
+    moment()
+    .subtract(2, 'years')
+    .format('X') *
+    1000 ||
     startValue.valueOf() <
-      moment(endValue)
-        .subtract(11, 'month')
-        .format('X') *
-        1000
+    moment(endValue)
+    .subtract(11, 'month')
+    .format('X') *
+    1000
   );
 }
 export function disabledEnd(startValue, endValue) {
@@ -31,10 +36,10 @@ export function disabledEnd(startValue, endValue) {
   return (
     endValue.valueOf() < startValue.valueOf() ||
     endValue.valueOf() >
-      moment(startValue)
-        .add(1, 'years')
-        .format('X') *
-        1000 ||
+    moment(startValue)
+    .add(1, 'years')
+    .format('X') *
+    1000 ||
     endValue.valueOf() > Date.now()
   );
 }
@@ -52,7 +57,7 @@ export function getPromoParams(json) {
   let dateArr = [];
   if (json.dateList) {
     json.dateList.forEach((ele, index) => {
-      if (index % 2 == 0) {
+      if (index % 2 === 0) {
         dateArr.push(
           `${moment(ele).format('YYYY-MM')}_${moment(
             json.dateList[index + 1],
@@ -65,7 +70,7 @@ export function getPromoParams(json) {
   let thresholdArr = [];
   if (json.thresholdList) {
     json.thresholdList.forEach((ele, index) => {
-      if (index % 2 == 0) {
+      if (index % 2 === 0) {
         thresholdArr.push(`${ele}-${json.thresholdList[index + 1]}`);
       }
     });

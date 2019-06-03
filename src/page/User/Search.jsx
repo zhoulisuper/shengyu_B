@@ -1,12 +1,12 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
 import { Form, Col, Button } from "antd";
-import ShopSelect from "components/promoComp/ShopSelect";
-import BusinessSelect from "components/promoComp/BusinessSelect";
-import SkuInput from "components/promoComp/SkuInput";
-import CateAndBrandSelect from "components/promoComp/CateAndBrandSelect";
-import Export from "components/export";
-import Loading from "components/loading";
+import ShopSelect from "common/ShopSelect";
+// import BusinessSelect from "common/BusinessSelect";
+// import SkuInput from "common/SkuInput";
+// import CateAndBrandSelect from "common/CateAndBrandSelect";
+// import Export from "components/export";
+import Loading from "component/Loading";
 import { getPromoParams } from "utils/promoModular";
 
 @Form.create()
@@ -39,20 +39,13 @@ class Search extends React.Component {
     common.setExportVisible(true);
   };
   render() {
-    let stateParam = this.props.store.promoStore[this.props.name];
+    // let stateParam = this.props.store.promoStore[this.props.name];
     const { form } = this.props;
     return (
       <Form>
-        <CateAndBrandSelect
-          form={form}
-          categoryId={stateParam.categoryId}
-          brandId={stateParam.brandId}
-          categoryLevel={stateParam.categoryLevel}
-          searchKey={stateParam.searchKey}
-        />
-        <ShopSelect form={form} initialValue={stateParam.shopId} />
-        <BusinessSelect form={form} initialValue={stateParam.businessTypeId} />
-        <SkuInput form={form} initialValue={stateParam.skuCode} />
+        <ShopSelect form={form} />
+        {/* <BusinessSelect form={form} />
+        <SkuInput form={form} /> */}
         <Col span={6}>
           <Button type="primary" onClick={this.onQuery}>
             查询
@@ -61,8 +54,8 @@ class Search extends React.Component {
             导出
           </Button>
         </Col>
-        <Export />
-        <Loading />
+        {/* <Export /> */}
+        {/* <Loading /> */}
       </Form>
     );
   }
