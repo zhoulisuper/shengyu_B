@@ -1,24 +1,24 @@
-import React from 'react';
-import { observer, inject } from 'mobx-react';
-import { Select, Form, Col } from 'antd';
-import filterOption from 'utils/filterOption';
-import { FORMLABEL } from 'utils/constant';
+import React from "react";
+import { observer, inject } from "mobx-react";
+import { Select, Form, Col } from "antd";
+import filterOption from "utils/filterOption";
+import { FORMLABEL } from "utils/constant";
 
 const { Item } = Form;
 const { Option } = Select;
 
-@inject('store')
+@inject("store")
 @observer
-export default class CaixiaoSelect extends React.Component {
+class CaixiaoSelect extends React.Component {
   componentDidMount() {
     const {
-      store: { promoStore, common },
+      store: { promoStore, common }
     } = this.props;
     promoStore.setCaiXiaoList({ data: common.userInfoTree });
   }
   onSearchCaiXiao = value => {
     const {
-      store: { promoStore, common },
+      store: { promoStore, common }
     } = this.props;
     if (value && common.isSuperAdmin) {
       if (this.setTimeOut) {
@@ -37,14 +37,14 @@ export default class CaixiaoSelect extends React.Component {
     const {
       form,
       initialValue,
-      store: { promoStore },
+      store: { promoStore }
     } = this.props;
     return (
       <Col span={6}>
         <Item {...FORMLABEL} label="采销员ERP">
-          {form.getFieldDecorator('caixiao', {
+          {form.getFieldDecorator("caixiao", {
             initialValue: initialValue,
-            rules: [],
+            rules: []
           })(
             <Select
               showSearch
@@ -57,10 +57,11 @@ export default class CaixiaoSelect extends React.Component {
                     {item.nameWithCode}
                   </Option>
                 ))}
-            </Select>,
+            </Select>
           )}
         </Item>
       </Col>
     );
   }
 }
+export default CaixiaoSelect;

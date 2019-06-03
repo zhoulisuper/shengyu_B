@@ -1,23 +1,23 @@
-import React from 'react';
-import { observer, inject } from 'mobx-react';
-import { Form, Col, Cascader } from 'antd';
-import { FORMLABELTWO } from 'utils/constant';
-import { castArray } from 'lodash';
-import { toJS } from 'mobx';
+import React from "react";
+import { observer, inject } from "mobx-react";
+import { Form, Col, Cascader } from "antd";
+import { FORMLABELTWO } from "utils/constant";
+import { castArray } from "lodash";
+import { toJS } from "mobx";
 
 const { Item } = Form;
 
-@inject('store')
+@inject("store")
 @observer
-export default class SkuInput extends React.Component {
+class SkuInput extends React.Component {
   chooseNearPick = e => {
     const { id } = e.target.dataset;
     let category = [];
-    id.split(',').forEach(ele => {
+    id.split(",").forEach(ele => {
       category.push(parseInt(ele));
     });
     this.props.form.setFieldsValue({
-      categoryId: category,
+      categoryId: category
     });
     this.props.handleChange(category);
   };
@@ -25,12 +25,12 @@ export default class SkuInput extends React.Component {
     const {
       form,
       initialValue,
-      store: { common },
+      store: { common }
     } = this.props;
     let displayRender = label => label[label.length - 1];
     return (
       <React.Fragment>
-        <div style={{ position: 'absolute', top: '-20px', left: '14px' }}>
+        <div style={{ position: "absolute", top: "-20px", left: "14px" }}>
           近期查询：
           {toJS(common.nearlyCidTypeOne).map(b => (
             <a
@@ -38,9 +38,9 @@ export default class SkuInput extends React.Component {
               data-id={b.id}
               key={b.name}
               style={{
-                color: '#debb6b',
-                lineHeight: '20px',
-                marginRight: '20px',
+                color: "#debb6b",
+                lineHeight: "20px",
+                marginRight: "20px"
               }}
             >
               {b.name}
@@ -49,9 +49,9 @@ export default class SkuInput extends React.Component {
         </div>
         <Col span={12}>
           <Item {...FORMLABELTWO} label="品类">
-            {form.getFieldDecorator('categoryId', {
+            {form.getFieldDecorator("categoryId", {
               initialValue: castArray(initialValue),
-              rules: [],
+              rules: []
             })(
               <Cascader
                 showSearch
@@ -59,7 +59,7 @@ export default class SkuInput extends React.Component {
                 options={toJS(common.categoryArray)}
                 displayRender={displayRender}
                 expandTrigger="hover"
-              />,
+              />
             )}
           </Item>
         </Col>
@@ -67,3 +67,4 @@ export default class SkuInput extends React.Component {
     );
   }
 }
+export default SkuInput;

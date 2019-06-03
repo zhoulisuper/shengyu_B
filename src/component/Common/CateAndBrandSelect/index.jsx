@@ -1,6 +1,6 @@
-import React from 'react';
-import { observer, inject } from 'mobx-react';
-import { toJS, observable } from 'mobx';
+import React from "react";
+import { observer, inject } from "mobx-react";
+import { toJS, observable } from "mobx";
 import {
   Select,
   Form,
@@ -10,18 +10,18 @@ import {
   Input,
   Popover,
   Tag,
-  Row,
-} from 'antd';
-import { uniq, castArray } from 'lodash';
-import { FORMLABELTWO } from 'utils/constant';
-import { getCidNameByCid } from 'utils/getCidNameByCid';
+  Row
+} from "antd";
+import { uniq, castArray } from "lodash";
+import { FORMLABELTWO } from "utils/constant";
+import { getCidNameByCid } from "utils/getCidNameByCid";
 
 const { Item } = Form;
 const { Option } = Select;
 
-@inject('store')
+@inject("store")
 @observer
-export default class BrandSelect extends React.Component {
+class BrandSelect extends React.Component {
   @observable
   dropDownVisiable = false;
 
@@ -36,7 +36,7 @@ export default class BrandSelect extends React.Component {
   onChangeCategory = async (value, p, extra) => {
     const {
       store: { promoStore, common },
-      form,
+      form
     } = this.props;
     let arr = [];
     if (extra.allCheckedNodes) {
@@ -53,36 +53,36 @@ export default class BrandSelect extends React.Component {
       });
     }
     if (uniq(arr).length > 1) {
-      message.warning('品类只支持同级多选');
+      message.warning("品类只支持同级多选");
       let ids = [];
       extra.preValue.forEach(ele => {
         ids.push(ele.value);
       });
       Promise.resolve().then(() => {
         form.setFieldsValue({
-          categoryId: ids,
+          categoryId: ids
         });
       });
     } else {
       form.setFieldsValue({
-        categoryLevel: uniq(arr)[0] ? uniq(arr)[0] : 0,
+        categoryLevel: uniq(arr)[0] ? uniq(arr)[0] : 0
       });
       if (!this.dropDownVisiable) {
         common.getLoading(true);
         if (this.props.type) {
           await promoStore.getBrandByCidStrength(
-            form.getFieldValue('categoryId'),
-            form.getFieldValue('categoryLevel'),
+            form.getFieldValue("categoryId"),
+            form.getFieldValue("categoryLevel")
           );
         } else {
           await promoStore.getBrandByCid(
-            form.getFieldValue('categoryId'),
-            form.getFieldValue('categoryLevel'),
+            form.getFieldValue("categoryId"),
+            form.getFieldValue("categoryLevel")
           );
         }
         form.setFieldsValue({
-          brandId: ['-999999'],
-          priceRange: '-999999',
+          brandId: ["-999999"],
+          priceRange: "-999999"
         });
         common.getLoading(false);
       }
@@ -91,25 +91,25 @@ export default class BrandSelect extends React.Component {
   onDropdownVisibleChange = async visibled => {
     const {
       store: { promoStore, common },
-      form,
+      form
     } = this.props;
     this.dropDownVisiable = visibled;
     if (visibled === false) {
       common.getLoading(true);
       if (this.props.type) {
         await promoStore.getBrandByCidStrength(
-          form.getFieldValue('categoryId'),
-          form.getFieldValue('categoryLevel'),
+          form.getFieldValue("categoryId"),
+          form.getFieldValue("categoryLevel")
         );
       } else {
         await promoStore.getBrandByCid(
-          form.getFieldValue('categoryId'),
-          form.getFieldValue('categoryLevel'),
+          form.getFieldValue("categoryId"),
+          form.getFieldValue("categoryLevel")
         );
       }
       form.setFieldsValue({
-        brandId: ['-999999'],
-        priceRange: '-999999',
+        brandId: ["-999999"],
+        priceRange: "-999999"
       });
       common.getLoading(false);
     }
@@ -118,12 +118,12 @@ export default class BrandSelect extends React.Component {
   onSearchBrand = value => {
     const {
       store: { common, promoStore },
-      form,
+      form
     } = this.props;
     if (
       value &&
       common.isSuperAdmin &&
-      form.getFieldValue('categoryId') == '-999999'
+      form.getFieldValue("categoryId") == "-999999"
     ) {
       if (this.setTimeOut) {
         clearTimeout(this.setTimeOut);
@@ -137,7 +137,7 @@ export default class BrandSelect extends React.Component {
           await promoStore.getBrandBySearch(value);
         }
         form.setFieldsValue({
-          searchKey: value,
+          searchKey: value
         });
         common.getLoading(false);
       }, 500);
@@ -146,19 +146,19 @@ export default class BrandSelect extends React.Component {
   brandChange = v => {
     const {
       store: { common, promoStore },
-      form,
+      form
     } = this.props;
     if (v && v.length > 10) {
-      message.error('最多只能选择10个品牌！');
+      message.error("最多只能选择10个品牌！");
       form.setFieldsValue({
-        brandId: v.pop(),
+        brandId: v.pop()
       });
     } else {
       let brandIds = common.priceBrandFiler(v, promoStore.brandList);
       Promise.resolve().then(() => {
         form.setFieldsValue({
           brandId: brandIds,
-          priceRange: '-999999',
+          priceRange: "-999999"
         });
       });
     }
@@ -172,7 +172,7 @@ export default class BrandSelect extends React.Component {
     const content = (
       <React.Fragment>
         {toJS(tagValue).map(b => (
-          <Tag style={{ marginRight: '5px', marginBottom: '5px' }}>{b}</Tag>
+          <Tag style={{ marginRight: "5px", marginBottom: "5px" }}>{b}</Tag>
         ))}
       </React.Fragment>
     );
@@ -185,41 +185,41 @@ export default class BrandSelect extends React.Component {
   chooseNearPick = async e => {
     const { id } = e.target.dataset;
     const {
-      store: { promoStore, common },
+      store: { promoStore, common }
     } = this.props;
-    let category = id.split(',');
+    let category = id.split(",");
     common.getLoading(true);
     if (this.props.type) {
       await promoStore.getBrandByCidStrength(
         category[category.length - 1],
-        category.length,
+        category.length
       );
     } else {
       await promoStore.getBrandByCid(
         category[category.length - 1],
-        category.length,
+        category.length
       );
     }
     this.props.form.setFieldsValue({
       categoryId: category[category.length - 1],
       categoryLevel: category.length,
-      brandId: '-999999',
-      priceRange: '-999999',
+      brandId: "-999999",
+      priceRange: "-999999"
     });
     common.getLoading(false);
   };
   render() {
     const {
       store: { promoStore, common },
-      form,
+      form
     } = this.props;
     const list =
-      this.props.type == 'Strength'
+      this.props.type == "Strength"
         ? promoStore.brandListStrength
         : promoStore.brandList;
     return (
-      <Row style={{ position: 'relative' }}>
-        <div style={{ position: 'absolute', top: '-20px', left: '14px' }}>
+      <Row style={{ position: "relative" }}>
+        <div style={{ position: "absolute", top: "-20px", left: "14px" }}>
           近期查询：
           {toJS(this.props.store.common.nearlyCidTypeTwo).map(b => (
             <a
@@ -227,9 +227,9 @@ export default class BrandSelect extends React.Component {
               data-id={b.id}
               key={b.name}
               style={{
-                color: '#debb6b',
-                lineHeight: '20px',
-                marginRight: '20px',
+                color: "#debb6b",
+                lineHeight: "20px",
+                marginRight: "20px"
               }}
             >
               {b.name}
@@ -238,8 +238,8 @@ export default class BrandSelect extends React.Component {
         </div>
         <Col span={12}>
           <Item {...FORMLABELTWO} label="品类">
-            {form.getFieldDecorator('categoryId', {
-              initialValue: this.props.categoryId,
+            {form.getFieldDecorator("categoryId", {
+              initialValue: this.props.categoryId
             })(
               <TreeSelect
                 maxTagCount={5}
@@ -249,20 +249,20 @@ export default class BrandSelect extends React.Component {
                 showCheckedStrategy={TreeSelect.SHOW_PARENT}
                 treeData={toJS(common.categoryPromoArray)}
                 placeholder="请选择品类"
-                style={{ width: '100%' }}
+                style={{ width: "100%" }}
                 onChange={this.onChangeCategory}
                 onDropdownVisibleChange={this.onDropdownVisibleChange}
-              />,
+              />
             )}
           </Item>
         </Col>
         <Col span={12}>
           <Item {...FORMLABELTWO} label="品牌">
-            {form.getFieldDecorator('brandId', {
-              initialValue: castArray(this.props.brandId),
+            {form.getFieldDecorator("brandId", {
+              initialValue: castArray(this.props.brandId)
             })(
               <Select
-                style={{ width: '100%' }}
+                style={{ width: "100%" }}
                 showSearch
                 filterOption={this.fetchBrand}
                 mode="multiple"
@@ -275,7 +275,7 @@ export default class BrandSelect extends React.Component {
                   <span className="brandImg">
                     <img
                       src={
-                        '//img10.360buyimg.com/uba/jfs/t16909/58/1547066613/382/a242de8b/5acdbf7cN5550e774.png'
+                        "//img10.360buyimg.com/uba/jfs/t16909/58/1547066613/382/a242de8b/5acdbf7cN5550e774.png"
                       }
                     />
                   </span>
@@ -289,7 +289,7 @@ export default class BrandSelect extends React.Component {
                           src={
                             ele.logoUrl
                               ? ele.logoUrl
-                              : '//img11.360buyimg.com/uba/jfs/t21691/263/1849385908/7803/4b220dec/5b3ad413N49e57556.png'
+                              : "//img11.360buyimg.com/uba/jfs/t21691/263/1849385908/7803/4b220dec/5b3ad413N49e57556.png"
                           }
                         />
                       </span>
@@ -297,19 +297,19 @@ export default class BrandSelect extends React.Component {
                     </Option>
                   );
                 })}
-              </Select>,
+              </Select>
             )}
           </Item>
         </Col>
-        <Col span={6} style={{ display: 'none' }}>
+        <Col span={6} style={{ display: "none" }}>
           <Item>
-            {form.getFieldDecorator('categoryLevel', {
-              initialValue: this.props.categoryLevel,
+            {form.getFieldDecorator("categoryLevel", {
+              initialValue: this.props.categoryLevel
             })(<Input />)}
           </Item>
           <Item>
-            {form.getFieldDecorator('searchKey', {
-              initialValue: this.props.searchKey,
+            {form.getFieldDecorator("searchKey", {
+              initialValue: this.props.searchKey
             })(<Input />)}
           </Item>
         </Col>
@@ -317,3 +317,4 @@ export default class BrandSelect extends React.Component {
     );
   }
 }
+export default BrandSelect;
