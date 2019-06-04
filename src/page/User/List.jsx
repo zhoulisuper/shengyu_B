@@ -1,8 +1,9 @@
-import { Button, Table } from "antd";
+import { Button, Table, Spin } from "antd";
 import { computed, toJS } from "mobx";
 import React from "react";
 import { inject, observer } from "mobx-react";
 import PropTypes from "prop-types";
+import PaginationInfo from "utils/pagination";
 
 @inject("store")
 @observer
@@ -15,14 +16,6 @@ class List extends React.Component {
       })
     }).isRequired
   };
-
-  constructor(props) {
-    super(props);
-    const {
-      store: { user }
-    } = this.props;
-    this.store = user;
-  }
   componentDidMount() {
     const {
       store: { user }
@@ -76,18 +69,25 @@ class List extends React.Component {
 
   onEdit = e => {
     const { index } = e.target.dataset;
-    const { store } = this;
-    const data = store.list[index];
+    const { user } = this.props.store;
+    const data = user.list[index];
     // store.setRecord(data);
     console.log(toJS(data));
-    store.showFormModal();
+    user.showFormModal();
   };
 
   render() {
-    const { list } = this.store;
-    const tableProps = toJS(list);
+    const { user } = this.props.store;
     return (
-      <Table columns={this.columns} dataSource={tableProps} rowKey="orderId" />
+      <Spin spinning={user.spin}>
+        <Table
+          bordered={true}
+          columns={this.columns}
+          pagination={PaginationInfo(user)}
+          dataSource={toJS(user.list)}
+          rowKey="orderId"
+        />
+      </Spin>
     );
   }
 }

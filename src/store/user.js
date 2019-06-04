@@ -14,12 +14,33 @@ import {
 class User extends Events {
   @observable
   list = []
+  @observable
+  pageSize = 20
+  @observable
+  pageNo = 1
+  @observable
+  total = 50
+  @observable
+  spin = false
+
   @action
   setList = (v) => {
     this.list = v
   }
+  @action
+  setPage = (current, size) => {
+    this.pageNo = current;
+    this.pageSize = size
+  }
+  @action
+  setSpin = (v) => {
+    this.spin = v;
+  }
   fetchList(param) {
-    return fetch(URL.userList, param).then(this.setFetchList)
+    return fetch(URL.userList, Object.assign({}, param, {
+      pageNo: this.pageNo,
+      pageSize: this.pageSize
+    })).then(this.setFetchList)
   }
   @action
   setFetchList = result => {
