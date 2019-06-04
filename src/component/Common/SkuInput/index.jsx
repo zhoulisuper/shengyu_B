@@ -8,12 +8,11 @@ const { Item } = Form;
 @observer
 class SkuInput extends React.Component {
   render() {
-    const { form, initialValue } = this.props;
+    const { form } = this.props;
     return (
       <Col span={6}>
         <Item {...FORMLABEL} label="商品编码">
           {form.getFieldDecorator("skuCode", {
-            initialValue: initialValue,
             rules: [
               {
                 validator: validateSkuIds
